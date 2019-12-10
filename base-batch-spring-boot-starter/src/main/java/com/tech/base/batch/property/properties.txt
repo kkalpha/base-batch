@@ -1,0 +1,11 @@
+
+base.batch.email.host=localhost
+base.batch.email.port=22
+base.batch.email.user=yk
+base.batch.email.password=pwd
+
+base.batch.from=batch-demo-noreply@philips.com
+
+base.batch.to=yk@1.com
+
+base.batch.subject=batch job status
