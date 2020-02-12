@@ -1,5 +1,6 @@
 package com.tech.base.batch.listener;
 
+import com.tech.base.batch.constant.Constant;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.batch.core.ExitStatus;
@@ -8,7 +9,7 @@ import org.springframework.batch.core.StepExecutionListener;
 import org.springframework.stereotype.Component;
 
 /*
-* collect all steps execution summary and put in the execution context
+ * collect all steps execution summary and put in the execution context
  */
 
 @Component
@@ -19,7 +20,7 @@ public class StagingListener implements StepExecutionListener {
 	public ExitStatus afterStep(StepExecution stepExecution) {
 		StringBuilder  stepSummary = null;
 
-		String summary = (String)stepExecution.getJobExecution().getExecutionContext().get("summary");
+		String summary = (String)stepExecution.getJobExecution().getExecutionContext().get(Constant.JOB_STATUS_SUMMARY);
 		if(summary == null){
 			stepSummary = new StringBuilder();
 		}else{
@@ -37,7 +38,7 @@ public class StagingListener implements StepExecutionListener {
 		stepSummary.append(stepExecution.getSummary());
 		stepSummary.append(this.separater);
 
-		stepExecution.getJobExecution().getExecutionContext().put("summary",stepSummary.toString());
+		stepExecution.getJobExecution().getExecutionContext().put(Constant.JOB_STATUS_SUMMARY,stepSummary.toString());
 		return null;
 	}
 

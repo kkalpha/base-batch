@@ -1,5 +1,6 @@
 package com.tech.batch.demo;
 
+import com.tech.base.batch.constant.Constant;
 import com.tech.base.batch.executor.JobExecutor;
 import com.tech.batch.demo.schedule.DemoJob;
 import org.slf4j.Logger;
@@ -47,11 +48,11 @@ public class AppJobLauncher {
 
             logger.info("************* start job date {}", new Date());
 
-            JobParametersBuilder parbuilder = new JobParametersBuilder();
-            parbuilder.addLong("time", System.currentTimeMillis());
-            parbuilder.addString("jobname", jobName);
+            JobParametersBuilder parBuilder = new JobParametersBuilder();
+            parBuilder.addLong(Constant.PARAM_START_TIME, System.currentTimeMillis());
+            parBuilder.addString(Constant.JOB_NAME, jobName);
 
-            JobParameters jobParameters = parbuilder.toJobParameters();
+            JobParameters jobParameters = parBuilder.toJobParameters();
 
             JobExecutor jobExecutor = (JobExecutor)ctx.getBean("jobExecutor");
 

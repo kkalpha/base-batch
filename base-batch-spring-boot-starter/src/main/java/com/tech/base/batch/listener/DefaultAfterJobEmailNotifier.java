@@ -1,5 +1,6 @@
 package com.tech.base.batch.listener;
 
+import com.tech.base.batch.constant.Constant;
 import com.tech.base.batch.email.EmailObject;
 import com.tech.base.batch.email.EmailService;
 import com.tech.base.batch.tasklet.SimpleSftpUploadTask;
@@ -22,12 +23,12 @@ public class DefaultAfterJobEmailNotifier implements AfterJobEventHandler {
 
     private void sendEmail(JobExecution jobExecution) {
         String subject = null;
-        String content = (String) jobExecution.getExecutionContext().get("summary");
+        String content = (String) jobExecution.getExecutionContext().get(Constant.JOB_STATUS_SUMMARY);
         if (jobExecution.getStatus() == BatchStatus.FAILED) {
 
-            subject = "Failed: " + jobExecution.getJobParameters().getString("jobname");
+            subject = "Failed: " + jobExecution.getJobParameters().getString(Constant.JOB_NAME);
         } else {
-            subject = "Completed: " + jobExecution.getJobParameters().getString("jobname");
+            subject = "Completed: " + jobExecution.getJobParameters().getString(Constant.JOB_NAME);
         }
 
         EmailObject obj = emailService.buildEmailObject().setSubject(subject).setContent(content);
